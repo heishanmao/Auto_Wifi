@@ -15,6 +15,7 @@ connect_status = {
 }
 
 def get_current_ssid():
+    # run cmd command
     cmd = 'netsh wlan show interfaces'
     p = subprocess.Popen(cmd,
                         stdin=subprocess.PIPE,
@@ -106,10 +107,11 @@ if __name__ == '__main__':
 
     wifi_instance = WifiDriver(wifi_conf)
 
-
     if check_ping('baidu.com') == 'ok':
+        print("You have already connected to internet!")
         exit()
     elif get_current_ssid() == wifi_conf['ssid']: # if ssid == conf
+        print("Wifi is connected to " + wifi_conf['ssid'])
         exit()
     else:
         # disconnecting
@@ -139,40 +141,6 @@ if __name__ == '__main__':
             time.sleep(1)
         else:
             exit()
-
-
-
-
-
-
-
-
-    # if wifi_instance.network_status() == 4:
-    #     # test ping
-    #     if check_ping('baidu.com') == 'ok':
-    #         exit()
-    # elif check_ping('baidu.com') == 'failed':
-    #     # check ssid
-    #     connected_wifi = get_current_wifi()
-    #
-    #     if connected_wifi == wifi_conf['ssid']:
-    #         exit()
-    #     else:
-    #         # disconnect
-    #         wifi_instance.disconnect_network()
-    #
-    #         # re-connected
-    #         if wifi_conf['ssid'] in wifi_instance.scan_wifi():
-    #             wifi_instance.remove_all_network()
-    #             time.sleep(1)
-    #
-    #             wifi_instance.connect_network()
-    #             for i in range(10):
-    #                 print('等待{}s, wifi status is {}'.format(i+1, connect_status[wifi_instance.network_status()]))
-    #                 if wifi_instance.network_status() == 4:
-    #                     print('wifi连接成功')
-    #                     break
-    #             time.sleep(1)
 
     # wifi_instance.disconnect_network()
     # for i in range(10):
