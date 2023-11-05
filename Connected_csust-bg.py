@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import time
 import pywifi
+
+import time
 import subprocess
 import os
+import sys
 
 connect_status = {
     0: 'DISCONNECTED',
@@ -109,10 +111,10 @@ if __name__ == '__main__':
 
     if check_ping('baidu.com') == 'ok':
         print("You have already connected to internet!")
-        exit()
+        sys.exit()
     elif get_current_ssid() == wifi_conf['ssid']: # if ssid == conf
         print("Wifi is connected to " + wifi_conf['ssid'])
-        exit()
+        sys.exit()
     else:
         # disconnecting
         wifi_instance.disconnect_network()
@@ -140,7 +142,7 @@ if __name__ == '__main__':
                     break
             time.sleep(1)
         else:
-            exit()
+            sys.exit()
 
     # wifi_instance.disconnect_network()
     # for i in range(10):
